@@ -104,8 +104,12 @@ object Uri {
   def unapply(uri: Uri): Option[Path] =
     Some(uri.path)
 
-  def parseTry(s: CharSequence)(implicit config: UriConfig = UriConfig.default): Try[Uri] =
-    Try(s.toString).flatMap(UriParser.parseUri)
+  def parseTry(s: CharSequence)(implicit config: UriConfig = UriConfig.default): Try[Uri] = {
+    Option(s) match {
+      case Some(value) => Try(value.toString).flatMap(UriParser.parseUri)
+      case None        => scala.util.Failure(new NullPointerException("s is null"))
+    }
+  }
 
   def parseOption(s: CharSequence)(implicit config: UriConfig = UriConfig.default): Option[Uri] =
     parseTry(s).toOption
