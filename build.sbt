@@ -13,8 +13,8 @@ import com.typesafe.tools.mima.plugin.MimaKeys.{mimaBinaryIssueFilters, mimaPrev
 
 name := "scala-uri root"
 
-ThisBuild / scalaVersion       := "3.2.2"
-ThisBuild / crossScalaVersions := Seq("2.12.17", "2.13.10", scalaVersion.value)
+ThisBuild / scalaVersion       := "3.3.3"
+ThisBuild / crossScalaVersions := Seq("2.12.19", "2.13.13", scalaVersion.value)
 publish / skip                 := true // Do not publish the root project
 
 val simulacrumScalafixVersion = "0.5.4"
@@ -28,10 +28,10 @@ val sharedSettings = Seq(
   organization := "io.lemonlabs",
   libraryDependencies ++= Seq(
     "org.typelevel"     %%% "simulacrum-scalafix-annotations" % simulacrumScalafixVersion,
-    "org.scalatest"     %%% "scalatest"                       % "3.2.17"   % Test,
-    "org.scalatestplus" %%% "scalacheck-1-16"                 % "3.2.14.0" % Test,
+    "org.scalatest"     %%% "scalatest"                       % "3.2.18"   % Test,
+    "org.scalatestplus" %%% "scalacheck-1-17"                 % "3.2.18.0" % Test,
     "org.scalacheck"    %%% "scalacheck"                      % "1.17.0"   % Test,
-    "org.typelevel"     %%% "cats-laws"                       % "2.9.0"    % Test
+    "org.typelevel"     %%% "cats-laws"                       % "2.10.0"   % Test
   ),
   scalacOptions ++= Seq(
     "-unchecked",
@@ -66,8 +66,8 @@ val scalaUriSettings = Seq(
   name        := "scala-uri",
   description := "Simple scala library for building and parsing URIs",
   libraryDependencies ++= Seq(
-    "org.typelevel" %%% "cats-core"  % "2.9.0",
-    "org.typelevel" %%% "cats-parse" % "0.3.9"
+    "org.typelevel" %%% "cats-core"  % "2.10.0",
+    "org.typelevel" %%% "cats-parse" % "0.3.10"
   ),
   libraryDependencies ++= (if (isScala3.value) Nil else Seq("com.chuusai" %%% "shapeless" % "2.3.10")),
   pomPostProcess := { node =>
@@ -165,7 +165,7 @@ lazy val scalaUri =
       Test / fork := true
     )
     .jsSettings(
-      libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.6.0",
+      libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0",
       libraryDependencies ++= (
         // securerandom used by scoverage in scala 2 tests
         if (isScala3.value) Nil
