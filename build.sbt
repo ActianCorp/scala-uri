@@ -30,7 +30,7 @@ val sharedSettings = Seq(
     "org.typelevel"     %%% "simulacrum-scalafix-annotations" % simulacrumScalafixVersion,
     "org.scalatest"     %%% "scalatest"                       % "3.2.18"   % Test,
     "org.scalatestplus" %%% "scalacheck-1-17"                 % "3.2.18.0" % Test,
-    "org.scalacheck"    %%% "scalacheck"                      % "1.17.0"   % Test,
+    "org.scalacheck"    %%% "scalacheck"                      % "1.18.0"   % Test,
     "org.typelevel"     %%% "cats-laws"                       % "2.10.0"   % Test
   ),
   scalacOptions ++= Seq(
@@ -67,7 +67,7 @@ val scalaUriSettings = Seq(
   description := "Simple scala library for building and parsing URIs",
   libraryDependencies ++= Seq(
     "org.typelevel" %%% "cats-core"  % "2.10.0",
-    "org.typelevel" %%% "cats-parse" % "0.3.10"
+    "org.typelevel" %%% "cats-parse" % "1.0.0"
   ),
   libraryDependencies ++= (if (isScala3.value) Nil else Seq("com.chuusai" %%% "shapeless" % "2.3.10")),
   pomPostProcess := { node =>
