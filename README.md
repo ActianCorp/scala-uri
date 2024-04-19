@@ -1,11 +1,9 @@
 # scala-uri
 
-[![scala-uri CI](https://github.com/lemonlabsuk/scala-uri/actions/workflows/ci.yml/badge.svg)](https://github.com/lemonlabsuk/scala-uri/actions/workflows/ci.yml)
-[![codecov.io](http://codecov.io/github/lemonlabsuk/scala-uri/coverage.svg?branch=master)](https://codecov.io/gh/lemonlabsuk/scala-uri/branch/master)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.lemonlabs/scala-uri_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.lemonlabs/scala-uri_2.12)
+[![scala-uri CI](https://github.com/lemonlabsuk/scala-uri/actions/workflows/ci.yml/badge.svg)](https://github.com/ActianCorp/scala-uri/actions/workflows/ci.yml)
 [![Scala.js](https://www.scala-js.org/assets/badges/scalajs-1.0.0.svg)](#scalajs-support)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/lemonlabsuk/scala-uri.svg)](http://isitmaintained.com/project/lemonlabsuk/scala-uri "Average time to resolve an issue")
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/lemonlabsuk/scala-uri.svg)](http://isitmaintained.com/project/lemonlabsuk/scala-uri "Percentage of issues still open")
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/ActianCorp/scala-uri.svg)](http://isitmaintained.com/project/ActianCorp/scala-uri "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/ActianCorp/scala-uri.svg)](http://isitmaintained.com/project/ActianCorp/scala-uri "Percentage of issues still open")
 
 `scala-uri` is a small Scala library that helps you work with URIs. It has the following features:
 
