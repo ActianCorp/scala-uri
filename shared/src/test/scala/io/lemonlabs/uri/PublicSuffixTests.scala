@@ -41,6 +41,16 @@ class PublicSuffixTests extends AnyFlatSpec with Matchers {
     uri.publicSuffix should equal(None)
   }
 
+  it should "handle punycode correctly" in {
+    val uri = Url.parse("http://www.example.xn--6frz82g")
+    uri.publicSuffix should equal(Some("xn--6frz82g"))
+  }
+
+  it should "should handle trailing dot correctly" in {
+    val uri = Url.parse("http://www.example.com.")
+    uri.publicSuffix should equal(Some("com."))
+  }
+
   "RelativeUrls" should "not return public suffixes" in {
     val uri = RelativeUrl.parse("/blah")
     uri.publicSuffix should equal(None)
