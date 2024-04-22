@@ -117,17 +117,19 @@ final case class DomainName(value: String)(implicit val conf: UriConfig = UriCon
   type Self = DomainName
 
   private def isValidPublicSuffix(suffix: String): Boolean = {
-    Try(toPunycode(suffix).stripSuffix(".")).map { normalisedSuffix =>
-      if (PublicSuffixes.set.contains(normalisedSuffix)) {true }
-      else if (PublicSuffixes.exceptions.contains(normalisedSuffix)) {false }
-           else {
-             val dotIndex = normalisedSuffix.indexOf('.')
-             if (dotIndex < 1) {false }
-             else {
-               PublicSuffixes.wildcardPrefixes.contains(normalisedSuffix.substring(dotIndex + 1))
-             }
-           }
-    }.getOrElse(false)
+    Try(toPunycode(suffix).stripSuffix("."))
+      .map { normalisedSuffix =>
+        if (PublicSuffixes.set.contains(normalisedSuffix)) { true }
+        else if (PublicSuffixes.exceptions.contains(normalisedSuffix)) { false }
+        else {
+          val dotIndex = normalisedSuffix.indexOf('.')
+          if (dotIndex < 1) { false }
+          else {
+            PublicSuffixes.wildcardPrefixes.contains(normalisedSuffix.substring(dotIndex + 1))
+          }
+        }
+      }
+      .getOrElse(false)
   }
 
   def withConfig(config: UriConfig): DomainName =
