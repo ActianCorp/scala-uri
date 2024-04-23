@@ -97,18 +97,23 @@ object UriConfig {
             decoder: UriDecoder = PercentDecoder,
             charset: String = "UTF-8",
             renderQuery: RenderQuery = RenderQuery.default
-  ): UriConfig =
+  ): UriConfig = {
+    val updatedDecoder = decoder match {
+      case d @ PercentDecoder(_, _) => d.copy(charset = charset)
+      case other                    => other
+    }
     UriConfig(
       encoder,
       encoder,
       encoder,
       encoder,
-      decoder,
-      decoder,
-      decoder,
-      decoder,
+      updatedDecoder,
+      updatedDecoder,
+      updatedDecoder,
+      updatedDecoder,
       charset,
       renderQuery,
       defaultPorts
     )
+  }
 }

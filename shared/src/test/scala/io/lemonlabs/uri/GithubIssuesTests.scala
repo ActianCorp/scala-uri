@@ -123,4 +123,13 @@ class GithubIssuesTests extends AnyFlatSpec with Matchers with OptionValues {
   "Github Issue #429" should "not allow forward slashes in host" in {
     Url.parseOption("https://\\") should equal(None)
   }
+
+  "Github Issue #468" should "use configured charset for query params" in {
+    val urlPercentage = RelativeUrl.parse("/path?param=r%F3n")(UriConfig(charset = "ISO-8859-1"))
+    val urlRaw = RelativeUrl.parse("/path?param=rón")(UriConfig(charset = "ISO-8859-1"))
+    urlPercentage.toStringRaw should be("/path?param=rón")
+    urlRaw.toStringRaw should be("/path?param=rón")
+    urlPercentage.toString should be("/path?param=r%F3n")
+    urlRaw.toString should be("/path?param=r%F3n")
+  }
 }
