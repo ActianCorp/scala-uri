@@ -116,16 +116,21 @@ final case class DomainName(value: String)(implicit val conf: UriConfig = UriCon
     with PunycodeSupport {
   type Self = DomainName
 
-  private def isValidPublicSuffix(suffix: String): Boolean =
-    if (PublicSuffixes.set.contains(suffix)) { true }
-    else if (PublicSuffixes.exceptions.contains(suffix)) { false }
-    else {
-      val dotIndex = suffix.indexOf('.')
-      if (dotIndex < 1) { false }
-      else {
-        PublicSuffixes.wildcardPrefixes.contains(suffix.substring(dotIndex + 1))
+  private def isValidPublicSuffix(suffix: String): Boolean = {
+    Try(toPunycode(suffix).stripSuffix("."))
+      .map { normalisedSuffix =>
+        if (PublicSuffixes.set.contains(normalisedSuffix)) { true }
+        else if (PublicSuffixes.exceptions.contains(normalisedSuffix)) { false }
+        else {
+          val dotIndex = normalisedSuffix.indexOf('.')
+          if (dotIndex < 1) { false }
+          else {
+            PublicSuffixes.wildcardPrefixes.contains(normalisedSuffix.substring(dotIndex + 1))
+          }
+        }
       }
-    }
+      .getOrElse(false)
+  }
 
   def withConfig(config: UriConfig): DomainName =
     DomainName(value)(config)

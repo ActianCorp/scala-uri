@@ -16,6 +16,18 @@ class ApexDomainTests extends AnyFlatSpec with Matchers {
     Url.parse("http://maps.google.com").apexDomain should equal(Some("google.com"))
   }
 
+  "DomainName" should "return apex domain for domain name in punycode" in {
+    DomainName.parse("www.example.xn--6frz82g").apexDomain should equal(Some("example.xn--6frz82g"))
+  }
+
+  "DomainName" should "return apex domain for domain name in unicode" in {
+    DomainName.parse("www.example.移动").apexDomain should equal(Some("example.移动"))
+  }
+
+  "DomainName" should "return apex domain for fully qualified domain name" in {
+    DomainName.parse("www.hello.example.com.").apexDomain should equal(Some("example.com."))
+  }
+
   it should "return itself for apexDomain when it is the apex domain" in {
     Url.parse("http://google.com").apexDomain should equal(Some("google.com"))
   }

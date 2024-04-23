@@ -1,6 +1,9 @@
 package io.lemonlabs.uri.inet
 
-object PublicSuffixes {
+/*
+All suffixes are normalised in punycode
+ */
+object PublicSuffixes extends PunycodeSupport {
   lazy val exceptions: Set[String] = Set(
     "www.ck",
     "city.kawasaki.jp",
@@ -33,7 +36,8 @@ object PublicSuffixes {
     "sch.uk"
   )
 
-  lazy val set: Set[String] = publicSuffixes0 ++ publicSuffixes1
+  lazy val set: Set[String] = (publicSuffixes0 ++ publicSuffixes1).map(toPunycode)
+
   private def publicSuffixes0 =
     Set(
       "ac",
