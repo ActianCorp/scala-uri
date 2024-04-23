@@ -29,7 +29,7 @@ val isScala3 = Def.setting {
 }
 
 val sharedSettings = Seq(
-  organization := "io.lemonlabs",
+  organization := "com.actian",
   libraryDependencies ++= Seq(
     "org.typelevel"     %%% "simulacrum-scalafix-annotations" % simulacrumScalafixVersion,
     "org.scalatest"     %%% "scalatest"                       % "3.2.18"   % Test,
