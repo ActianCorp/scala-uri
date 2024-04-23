@@ -43,7 +43,10 @@ object UpdatePublicSuffixes {
     val p = new PrintWriter(new File("shared/src/main/scala/io/lemonlabs/uri/inet/PublicSuffixes.scala"))
     p.println("package io.lemonlabs.uri.inet")
     p.println("")
-    p.println("object PublicSuffixes {")
+    p.println("/*")
+    p.println("All suffixes are normalised in punycode")
+    p.println("*/")
+    p.println("object PublicSuffixes extends PunycodeSupport {")
 
     p.println("  lazy val exceptions: Set[String] = Set(")
     p.println(exceptions.map(_.tail).map(e => s"""    "$e"""").mkString(",\n"))
@@ -53,7 +56,11 @@ object UpdatePublicSuffixes {
     p.println(wildcardPrefixes.map(_.drop(2)).map(w => s"""    "$w"""").mkString(",\n"))
     p.println("  )\n")
 
-    p.println("  lazy val set: Set[String] = " + groups.keys.map(i => s"publicSuffixes$i").mkString(" ++ "))
+    p.println(
+      "  lazy val set: Set[String] = " + groups.keys
+        .map(i => s"publicSuffixes$i")
+        .mkString("(", " ++ ", ")") + ".map(toPunycode)"
+    )
     groups.foreach { case (index, group) =>
       val setArgs = group.map(suffix => s"""      "$suffix"""").mkString(",\n")
       p.println(s"  private def publicSuffixes$index =\n    Set(\n" + setArgs + "\n    )")
