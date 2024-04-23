@@ -30,12 +30,12 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           key: scala-dependencies
           path: |
@@ -44,13 +44,13 @@ jobs:
             ~/.coursier
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'adopt'
 
       - name: Set up Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '14' # nodejs < 10 fails finding URL class
 
