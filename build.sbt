@@ -11,6 +11,10 @@ import com.typesafe.tools.mima.core.{
 }
 import com.typesafe.tools.mima.plugin.MimaKeys.{mimaBinaryIssueFilters, mimaPreviousArtifacts, mimaReportBinaryIssues}
 
+lazy val NEXUS_HOST = sys.props.get("NEXUS_HOST").getOrElse("")
+lazy val NEXUS_USER = sys.props.get("NEXUS_USER").getOrElse("")
+lazy val NEXUS_PASS = sys.props.get("NEXUS_PASS").getOrElse("")
+
 name := "scala-uri root"
 
 ThisBuild / scalaVersion       := "3.3.3"
@@ -87,35 +91,14 @@ val publishingSettings = Seq(
   pomIncludeRepository := { _ =>
     false
   },
-  resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
-  resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
+  credentials += Credentials("Sonatype Nexus Repository Manager", NEXUS_HOST, NEXUS_USER, NEXUS_PASS),
   publishTo := {
-    val nexus = "https://oss.sonatype.org/"
+    val nexus = "https://alm.actian.com/nexus/"
     if (version.value.trim.endsWith("SNAPSHOT"))
-      Some("snapshots" at nexus + "content/repositories/snapshots")
+      Some("snapshots" at nexus + "content/repositories/aop-snapshot")
     else
-      Some("releases" at nexus + "service/local/staging/deploy/maven2")
-  },
-  pomExtra :=
-    <url>https://github.com/lemonlabsuk/scala-uri</url>
-      <licenses>
-        <license>
-          <name>Apache 2</name>
-          <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-          <distribution>repo</distribution>
-        </license>
-      </licenses>
-      <scm>
-        <url>git@github.com:lemonlabsuk/scala-uri.git</url>
-        <connection>scm:git@github.com:lemonlabsuk/scala-uri.git</connection>
-      </scm>
-      <developers>
-        <developer>
-          <id>theon</id>
-          <name>Ian Forsey</name>
-          <url>https://lemonlabs.io</url>
-        </developer>
-      </developers>
+      Some("releases" at nexus + "content/repositories/aop")
+  }
 )
 
 val previousVersions = Set.empty[String] // Set(0, 4).map(v => s"3.$v.0")
