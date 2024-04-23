@@ -3,17 +3,16 @@ package io.lemonlabs.uri.decoding
 import scala.annotation.tailrec
 import scala.collection.mutable
 
-object PercentDecoder extends PercentDecoder(ignoreInvalidPercentEncoding = false) {
+object PercentDecoder extends PercentDecoder(ignoreInvalidPercentEncoding = false, charset = "UTF-8") {
   protected val errorMessage =
     "It looks like this URL isn't Percent Encoded. Ideally you should Percent Encode the relevant parts " +
       "of your URL before passing to scala-uri. Alternatively, you can use a UriConfig with either " +
       "PercentDecoder(ignoreInvalidPercentEncoding=true) or NoopDecoder to suppress this Exception"
 
-  protected val cs = "UTF-8"
   protected val percentByte = '%'.toByte
 }
 
-case class PercentDecoder(ignoreInvalidPercentEncoding: Boolean) extends UriDecoder {
+case class PercentDecoder(ignoreInvalidPercentEncoding: Boolean, charset: String = "UTF-8") extends UriDecoder {
   import io.lemonlabs.uri.decoding.PercentDecoder._
 
   def decodeBytes(s: String, charset: String): Array[Byte] = {
@@ -43,12 +42,12 @@ case class PercentDecoder(ignoreInvalidPercentEncoding: Boolean) extends UriDeco
               throw new UriDecodeException(s"Encountered '%' followed by a non hex number '$hex'. $errorMessage")
           }
         case ch :: xs =>
-          go(xs, result ++= ch.toString.getBytes(cs))
+          go(xs, result ++= ch.toString.getBytes(charset))
       }
 
     go(s.toCharArray.toList, new mutable.ArrayBuilder.ofByte)
   }
 
   def decode(s: String): String =
-    new String(decodeBytes(s, cs), cs)
+    new String(decodeBytes(s, charset), charset)
 }
