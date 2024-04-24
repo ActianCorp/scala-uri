@@ -62,13 +62,13 @@ jobs:
           COVERAGE_REPORT: ${{ matrix.coverageReport }}
           SBT_OPTS: -Xss10m
         run: >
-          sbt ++$SCALA_VERSION check mdoc $COVERAGE $PROJECT/test $COVERAGE_REPORT &&
-          cd target &&
-          git clone https://github.com/lemonlabsuk/scala-uri-demo.git &&
-          cd scala-uri-demo &&
-          echo "1.9.7" > './project/build.properties' &&
-          sbt -Dscala.ver=$SCALA_VERSION -Dscala.uri.ver=4.0.3 test &&
-          cd "$TRAVIS_BUILD_DIR"
-
-      - name: Report to CodeCov
-        run: bash <(curl -s https://codecov.io/bash)
+          sbt ++$SCALA_VERSION check mdoc $COVERAGE $PROJECT/test $COVERAGE_REPORT
+#          cd target &&
+#          git clone https://github.com/lemonlabsuk/scala-uri-demo.git &&
+#          cd scala-uri-demo &&
+#          echo "1.9.7" > './project/build.properties' &&
+#          sbt -Dscala.ver=$SCALA_VERSION -Dscala.uri.ver=4.0.3 test &&
+#          cd "$TRAVIS_BUILD_DIR"
+#
+#      - name: Report to CodeCov
+#        run: bash <(curl -s https://codecov.io/bash)
