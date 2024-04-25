@@ -45,7 +45,7 @@ object UpdatePublicSuffixes {
     p.println("")
     p.println("/*")
     p.println("All suffixes are normalised in punycode")
-    p.println("*/")
+    p.println(" */")
     p.println("object PublicSuffixes extends PunycodeSupport {")
 
     p.println("  lazy val exceptions: Set[String] = Set(")

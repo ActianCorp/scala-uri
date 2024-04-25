@@ -2,7 +2,7 @@ package io.lemonlabs.uri.inet
 
 /*
 All suffixes are normalised in punycode
-*/
+ */
 object PublicSuffixes extends PunycodeSupport {
   lazy val exceptions: Set[String] = Set(
     "www.ck",
